@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import loadMoreIcon from '../../assets/load-more.png'
 
-export default function Card({image, title}) {
-
+export default function CardLoadMore({handleClick}) {
   const Container = styled.div`
     border: 1px solid grey;
     border-radius: 4px;
@@ -14,19 +14,21 @@ export default function Card({image, title}) {
     width: 150px;
     height: 230px;
     text-align: center;
+    background-color: lightgrey;
+    cursor: pointer;
   `
 
   const Image = styled.img`
-    width: 100px;
+    width: 50px;
     height: 144px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 4px;
   `
 
   return (
-    <Container>
-      <Image src={image} alt={title}/>
-      <p>{title}</p>
+    <Container onClick={handleClick}>
+      <Image src={loadMoreIcon} alt={'load more'}/>
+      <b>LOAD MORE</b>
     </Container>
   )
 }
