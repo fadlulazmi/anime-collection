@@ -14,6 +14,7 @@ query ($page: Int, $perPage: Int) {
       id
       title {
         english
+        native
       }
       coverImage {
         medium
