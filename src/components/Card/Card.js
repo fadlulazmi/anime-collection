@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-export default function Card({image, title, handleClick}) {
+export default function Card(props) {
+
+  const {image, title, handleClick, children} = props
 
   const Container = styled.div`
     border: 1px solid grey;
@@ -24,9 +26,10 @@ export default function Card({image, title, handleClick}) {
   `
 
   return (
-    <Container onClick={handleClick}>
+    <Container>
       <Image src={image} alt={title}/>
-      <p>{title}</p>
+      <p onClick={handleClick}><u>{title}</u></p>
+      {children}
     </Container>
   )
 }

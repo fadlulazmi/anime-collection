@@ -5,6 +5,7 @@ import AnimeContextProvider from './context/anime';
 import AnimeDetail from './pages/AnimeDetail';
 import CollectionContextProvider from './context/collection';
 import CollectionList from './pages/CollectionList';
+import CollectionDetail from './pages/CollectionDetail';
 
 function App() {
   return (
@@ -12,9 +13,10 @@ function App() {
       <CollectionContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<AnimeList />} />
+            <Route path="/" exact element={<AnimeList />} />
             <Route path="/:animeId" element={<AnimeDetail />} />
             <Route path="/collections" element={<CollectionList />} />
+            <Route path="/collections/:name" element={<CollectionDetail />} />
           </Routes>
         </BrowserRouter>
       </CollectionContextProvider>
