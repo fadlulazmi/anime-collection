@@ -6,6 +6,7 @@ import AnimeDetail from './pages/AnimeDetail';
 import CollectionContextProvider from './context/collection';
 import CollectionList from './pages/CollectionList';
 import CollectionDetail from './pages/CollectionDetail';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

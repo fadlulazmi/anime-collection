@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client'
 import { GET_ANIME_DETAIL } from '../../queries'
 import styled from '@emotion/styled'
 import { CollectionContext } from '../../context/collection'
+import { Button, Stack } from 'react-bootstrap'
 
 export default function AnimeDetail() {
   const [selectedCollection, setSelectedCollection] = useState('')
@@ -83,9 +84,17 @@ export default function AnimeDetail() {
     })
     return (
       <div>
-        <b>{names.length} collection(s)</b>
         <Container>
-          {names.map(name => <Link key={name} to={`/collections/${name}`}>{name}</Link>)}
+          <b>anime saved in :</b>
+          <b>{names.length} collection(s)</b>
+          <br/>
+          <Stack direction='horizontal' gap={2}>
+            {names.map(name => (
+              <Link key={name} to={`/collections/${name}`}>
+                <Button variant='info'>{name}</Button>
+              </Link>
+            ))}
+          </Stack>
         </Container>
       </div>
     )
@@ -94,11 +103,7 @@ export default function AnimeDetail() {
   return (
     <Container>
       <h3>{title.english || title.native}</h3>
-      <div>
-        <b>anime saved in :</b>
-        {_renderCollected()}
-      </div>
-      {!addForm && <button onClick={() => setAddForm(true)}>add to collection</button>}
+      {!addForm && <Button variant='success' size='sm' onClick={() => setAddForm(true)}>add to collection</Button>}
       {addForm && (
         <form onSubmit={addToCollection}>
           <Container>
@@ -106,7 +111,12 @@ export default function AnimeDetail() {
               <>
               <div>
                 <label>Your Collections </label>
-                <select name='collectionsOptions' onChange={e => setSelectedCollection(e.target.value)} value={selectedCollection}>
+                <select 
+                  disabled={newCollection}
+                  name='collectionsOptions' 
+                  onChange={e => setSelectedCollection(e.target.value)} 
+                  value={selectedCollection}
+                >
                   <option />
                   {Object.keys(collections.data).map(name => (
                     <option key={name} value={name}>{name}</option>
@@ -119,6 +129,7 @@ export default function AnimeDetail() {
             <div>
               <label>New Collection </label>
               <input
+                disabled={selectedCollection}
                 name="collectionName"
                 type="text"
                 onChange={e => setNewCollection(e.target.value)} 
@@ -127,10 +138,15 @@ export default function AnimeDetail() {
               />
             </div>
           </Container>
-          <button type='submit' disabled={disable}>save</button>
-          <button onClick={() => setAddForm(false)}>cancel</button>
+          <Stack  direction='horizontal' gap={2}>
+            <Button variant='success' size='sm' type='submit' disabled={disable}>save</Button>
+            <Button variant='light' size='sm' onClick={() => setAddForm(false)}>cancel</Button>
+          </Stack>
         </form>
       )}
+      <div>
+        {_renderCollected()}
+      </div>
       {trailer && <Iframe 
         src={`https://www.youtube.com/embed/${trailer.id}`} 
         title={trailer.id}
