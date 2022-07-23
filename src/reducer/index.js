@@ -13,10 +13,10 @@ export const animeReducer = (state, action) => {
 
 export const collectionReducer = (state, action) => {
   switch (action.type) {
-    case 'GET_COLLECTION_LIST': 
+    case 'SET_COLLECTION': 
       return {
         ...state,
-        collection: action.collection
+        data: action.data
       }
     default:
       return state;

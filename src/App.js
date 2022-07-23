@@ -3,16 +3,19 @@ import './App.css';
 import AnimeList from './pages/AnimeList';
 import AnimeContextProvider from './context/anime';
 import AnimeDetail from './pages/AnimeDetail';
+import CollectionContextProvider from './context/collection';
 
 function App() {
   return (
     <AnimeContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<AnimeList />} />
-          <Route path="/:animeId" element={<AnimeDetail />} />
-        </Routes>
-      </BrowserRouter>
+      <CollectionContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<AnimeList />} />
+            <Route path="/:animeId" element={<AnimeDetail />} />
+          </Routes>
+        </BrowserRouter>
+      </CollectionContextProvider>
     </AnimeContextProvider>
   );
 }
