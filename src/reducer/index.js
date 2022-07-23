@@ -10,3 +10,15 @@ export const animeReducer = (state, action) => {
       return state;
   }
 } 
+
+export const collectionReducer = (state, action) => {
+  switch (action.type) {
+    case 'GET_COLLECTION_LIST': 
+      return {
+        ...state,
+        collection: action.collection
+      }
+    default:
+      return state;
+  }
+}

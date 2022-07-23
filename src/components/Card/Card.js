@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-export default function Card({image, title}) {
+export default function Card({image, title, handleClick}) {
 
   const Container = styled.div`
     border: 1px solid grey;
@@ -24,7 +24,7 @@ export default function Card({image, title}) {
   `
 
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <Image src={image} alt={title}/>
       <p>{title}</p>
     </Container>

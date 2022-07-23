@@ -23,3 +23,28 @@ query ($page: Int, $perPage: Int) {
     }
   }
 }`)
+
+export const GET_ANIME_DETAIL = gql(`
+query ($id: Int) { 
+  Media (id: $id) {
+    id
+    title {
+      english
+      native
+    }
+    coverImage {
+      medium
+      large
+    }
+    bannerImage
+    description
+    episodes
+    genres
+    averageScore
+    trailer {
+      id
+      site
+      thumbnail
+    }
+  }
+}`)
