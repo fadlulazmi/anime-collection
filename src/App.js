@@ -4,6 +4,7 @@ import AnimeList from './pages/AnimeList';
 import AnimeContextProvider from './context/anime';
 import AnimeDetail from './pages/AnimeDetail';
 import CollectionContextProvider from './context/collection';
+import CollectionList from './pages/CollectionList';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<AnimeList />} />
             <Route path="/:animeId" element={<AnimeDetail />} />
+            <Route path="/collections" element={<CollectionList />} />
           </Routes>
         </BrowserRouter>
       </CollectionContextProvider>

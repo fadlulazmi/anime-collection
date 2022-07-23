@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { GET_ANIME_DETAIL } from '../../queries'
 import styled from '@emotion/styled'
@@ -84,7 +84,9 @@ export default function AnimeDetail() {
     return (
       <div>
         <b>{names.length} collection(s)</b>
-        {names.map(name => <p key={name}>{name}</p>)}
+        <Container>
+          {names.map(name => <Link key={name} to={`/collections/${name}`}>{name}</Link>)}
+        </Container>
       </div>
     )
   }
