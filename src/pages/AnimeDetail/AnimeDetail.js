@@ -4,7 +4,6 @@ import { useQuery } from '@apollo/client'
 import { GET_ANIME_DETAIL } from '../../queries'
 import styled from '@emotion/styled'
 import { CollectionContext } from '../../context/collection'
-import { Button, Stack } from 'react-bootstrap'
 
 export default function AnimeDetail() {
   const [selectedCollection, setSelectedCollection] = useState('')
@@ -75,6 +74,18 @@ export default function AnimeDetail() {
     margin-top: 32px;
   `
 
+  const Label = styled.label`
+    margin-right: 16px
+  `
+
+  const Bold = styled.b`
+    margin: 16px;
+  `
+
+  const Form = styled.form`
+    text-align: center
+  `
+
   const _renderCollected = () => {
     const names = []
     Object.keys(collections.data).forEach(key => {
@@ -84,17 +95,9 @@ export default function AnimeDetail() {
     })
     return (
       <div>
+        <Bold>{names.length} collection(s)</Bold>
         <Container>
-          <b>anime saved in :</b>
-          <b>{names.length} collection(s)</b>
-          <br/>
-          <Stack direction='horizontal' gap={2}>
-            {names.map(name => (
-              <Link key={name} to={`/collections/${name}`}>
-                <Button variant='info'>{name}</Button>
-              </Link>
-            ))}
-          </Stack>
+          {names.map(name => <Link key={name} to={`/collections/${name}`}>{name}</Link>)}
         </Container>
       </div>
     )
@@ -103,19 +106,23 @@ export default function AnimeDetail() {
   return (
     <Container>
       <h3>{title.english || title.native}</h3>
-      {!addForm && <Button variant='success' size='sm' onClick={() => setAddForm(true)}>add to collection</Button>}
+      <div>
+        <Bold>anime saved in :</Bold>
+        {_renderCollected()}
+      </div>
+      {!addForm && <button onClick={() => setAddForm(true)}>add to collection</button>}
       {addForm && (
-        <form onSubmit={addToCollection}>
+        <Form onSubmit={addToCollection}>
           <Container>
             {Object.keys(collections.data).length > 0 && (
               <>
               <div>
-                <label>Your Collections </label>
-                <select 
-                  disabled={newCollection}
-                  name='collectionsOptions' 
+                <Label>Your Collections </Label>
+                <select
+                  name='collectionsOptions'
                   onChange={e => setSelectedCollection(e.target.value)} 
                   value={selectedCollection}
+                  disabled={newCollection}
                 >
                   <option />
                   {Object.keys(collections.data).map(name => (
@@ -123,30 +130,25 @@ export default function AnimeDetail() {
                   ))}
                 </select>
               </div>
-                <b> or </b>
+                <Bold> or </Bold>
               </>
             )}
             <div>
-              <label>New Collection </label>
+              <Label>New Collection </Label>
               <input
-                disabled={selectedCollection}
                 name="collectionName"
                 type="text"
                 onChange={e => setNewCollection(e.target.value)} 
                 value={newCollection}
                 placeholder="input new colection names"
+                disabled={selectedCollection}
               />
             </div>
           </Container>
-          <Stack  direction='horizontal' gap={2}>
-            <Button variant='success' size='sm' type='submit' disabled={disable}>save</Button>
-            <Button variant='light' size='sm' onClick={() => setAddForm(false)}>cancel</Button>
-          </Stack>
-        </form>
+          <button type='submit' disabled={disable}>save</button>
+          <button onClick={() => setAddForm(false)}>cancel</button>
+        </Form>
       )}
-      <div>
-        {_renderCollected()}
-      </div>
       {trailer && <Iframe 
         src={`https://www.youtube.com/embed/${trailer.id}`} 
         title={trailer.id}

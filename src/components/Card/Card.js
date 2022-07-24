@@ -11,10 +11,11 @@ export default function Card(props) {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     padding: 16px;
     margin: 16px;
     width: 150px;
-    height: 230px;
+    height: 270px;
     text-align: center;
   `
 
@@ -23,12 +24,18 @@ export default function Card(props) {
     height: 144px;
     object-fit: cover;
     border-radius: 4px;
+    cursor: pointer;
+  `
+
+  const Title = styled.p`
+    width: 130px;
+    cursor: pointer;
   `
 
   return (
     <Container>
-      <Image src={image} alt={title}/>
-      <p onClick={handleClick}><u>{title}</u></p>
+      <Image onClick={handleClick} src={image} alt={title}/>
+      <Title onClick={handleClick}><u>{title}</u></Title>
       {children}
     </Container>
   )

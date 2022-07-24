@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import { CollectionContext } from '../../context/collection'
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
-import { Form, Button, Stack } from 'react-bootstrap'
 
 export default function CollectionList() {
   const { collections, dispatch } = useContext(CollectionContext)
@@ -53,30 +52,30 @@ export default function CollectionList() {
   return (
     <Container>
       <Wrapper>
-        <Form.Control className='form-control-lg' placeholder='new collection name' onChange={e => setInputTextNew(e.target.value)} value={inputTextNew} />
-        <Button size="lg" variant='success' disabled={disableSave} onClick={handleSaveNewCollection}>save</Button>
+        <input placeholder='new collection name' onChange={e => setInputTextNew(e.target.value)} value={inputTextNew} />
+        <button disabled={disableSave} onClick={handleSaveNewCollection}>save new collection</button>
       </Wrapper>
       {Object.keys(collections.data).map(name => (
         <Wrapper key={name}>
           <div>
             {isOpenRename === name ? (
               <div>
-                <Form.Control onChange={e => setInputTextRename(e.target.value)} value={inputTextRename} />
-                <Button variant='success' onClick={() => handleSaveRename(name)}>save</Button>
-                <Button variant='light' onClick={() => setIsOpenRename('')}>cancel</Button>
+                <input onChange={e => setInputTextRename(e.target.value)} value={inputTextRename} />
+                <button onClick={() => handleSaveRename(name)}>save</button>
+                <button onClick={() => setIsOpenRename('')}>cancel</button>
               </div>
             ) : (
               <div>
                 <p><b>{name}</b> <small>({collections.data[name].length} data)</small> </p>
-                <Button variant='light' onClick={() => handleOpenRename(name)}>rename</Button>
+                <button onClick={() => handleOpenRename(name)}>rename</button>
               </div>
             )}
           </div>
           <div>
             <Link to={`/collections/${name}`}>
-              <Button variant='light'>Detail</Button>
+              <button>Detail</button>
             </Link>
-            <Button variant='danger' onClick={() => handleDelete(name)}>delete collection</Button>
+            <button onClick={() => handleDelete(name)}>Delete</button>
           </div>
         </Wrapper>
       ))}

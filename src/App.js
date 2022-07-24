@@ -7,12 +7,14 @@ import CollectionContextProvider from './context/collection';
 import CollectionList from './pages/CollectionList';
 import CollectionDetail from './pages/CollectionDetail';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
     <AnimeContextProvider>
       <CollectionContextProvider>
         <BrowserRouter>
+          <Navbar />
           <Routes>
             <Route path="/" exact element={<AnimeList />} />
             <Route path="/:animeId" element={<AnimeDetail />} />

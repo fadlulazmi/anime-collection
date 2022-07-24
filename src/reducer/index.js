@@ -3,7 +3,7 @@ export const animeReducer = (state, action) => {
     case 'GET_ANIME_LIST': 
       return {
         ...state,
-        animeList: state.animeList.concat(action.animeList),
+        animeList: action.animeList,
         meta: action.meta
       }
     default:

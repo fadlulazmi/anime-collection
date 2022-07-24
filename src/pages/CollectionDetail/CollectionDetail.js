@@ -5,7 +5,6 @@ import { CollectionContext } from '../../context/collection'
 import { useQuery } from '@apollo/client'
 import { GET_ANIME_DETAIL } from '../../queries'
 import Card from '../../components/Card'
-import { Button, Form } from 'react-bootstrap'
 
 export default function CollectionDetail() {
   const navigate = useNavigate()
@@ -52,14 +51,14 @@ export default function CollectionDetail() {
         {!editCollection ? (
           <>
             <h2>{name}</h2>
-            <Button variant='light' onClick={() => setEditCollection(true)}>rename collection</Button>
+            <button onClick={() => setEditCollection(true)}>rename collection</button>
           </>
         ) : (
           <>
-            <Form.Control onChange={e => setInputText(e.target.value)} value={inputText} />
+            <input onChange={e => setInputText(e.target.value)} value={inputText} />
             <br/>
-            <Button variant='success' disabled={inputText === name || !inputText} onClick={handleButtonSave}>save</Button>
-            <Button variant='light' onClick={handleButtonCancel}>cancel</Button>
+            <button disabled={inputText === name || !inputText} onClick={handleButtonSave}>save</button>
+            <button onClick={handleButtonCancel}>cancel</button>
           </>
         )}
       </div>
@@ -92,7 +91,7 @@ export function Collection({ id, handleRemove }){
       title={title.english || title.native} 
       handleClick={handleClick}
     >
-      <Button size='sm' variant='danger' onClick={() => handleRemove(id)}>remove</Button>
+      <button onClick={() => handleRemove(id)}>remove</button>
     </Card>
   )
 }
