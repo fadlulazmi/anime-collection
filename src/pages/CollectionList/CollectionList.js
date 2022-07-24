@@ -23,9 +23,11 @@ export default function CollectionList() {
   }
 
   const handleDelete = (name) => {
-    const currentData = {...collections.data}
-    delete currentData[name]
-    dispatch({ type: 'SET_COLLECTION', data: currentData })
+    if(window.confirm(`Delete collection "${name}" ?`) === true){
+      const currentData = {...collections.data}
+      delete currentData[name]
+      dispatch({ type: 'SET_COLLECTION', data: currentData })
+    }
   }
 
   const handleOpenRename = (name) => {
@@ -47,35 +49,42 @@ export default function CollectionList() {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 32px;
+    flex-wrap: wrap;
   `
 
   return (
     <Container>
       <Wrapper>
-        <input placeholder='new collection name' onChange={e => setInputTextNew(e.target.value)} value={inputTextNew} />
+        <input 
+          type="text"
+          placeholder='new collection name' 
+          onChange={e => setInputTextNew(e.target.value)} 
+          value={inputTextNew} 
+          pattern="[a-zA-Z0-9\s]+"
+        />
         <button disabled={disableSave} onClick={handleSaveNewCollection}>save new collection</button>
       </Wrapper>
       {Object.keys(collections.data).map(name => (
         <Wrapper key={name}>
           <div>
             {isOpenRename === name ? (
-              <div>
-                <input onChange={e => setInputTextRename(e.target.value)} value={inputTextRename} />
-                <button onClick={() => handleSaveRename(name)}>save</button>
-                <button onClick={() => setIsOpenRename('')}>cancel</button>
-              </div>
+              <input onChange={e => setInputTextRename(e.target.value)} value={inputTextRename} />
             ) : (
-              <div>
-                <p><b>{name}</b> <small>({collections.data[name].length} data)</small> </p>
-                <button onClick={() => handleOpenRename(name)}>rename</button>
-              </div>
+              <p><Link to={`/collections/${name}`}>{name}</Link> <small>({collections.data[name].length} data)</small> </p>
             )}
           </div>
           <div>
-            <Link to={`/collections/${name}`}>
-              <button>Detail</button>
-            </Link>
-            <button onClick={() => handleDelete(name)}>Delete</button>
+            {isOpenRename === name ? (
+              <>
+                <button disabled={name === inputTextRename} onClick={() => handleSaveRename(name)}>save</button>
+                <button onClick={() => setIsOpenRename('')}>cancel</button>
+              </>
+            ) : (
+              <>
+                <button onClick={() => handleOpenRename(name)}>rename</button>
+                <button onClick={() => handleDelete(name)}>Delete</button>
+              </>
+            )}
           </div>
         </Wrapper>
       ))}

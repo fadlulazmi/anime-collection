@@ -15,12 +15,14 @@ function App() {
       <CollectionContextProvider>
         <BrowserRouter>
           <Navbar />
-          <Routes>
-            <Route path="/" exact element={<AnimeList />} />
-            <Route path="/:animeId" element={<AnimeDetail />} />
-            <Route path="/collections" element={<CollectionList />} />
-            <Route path="/collections/:name" element={<CollectionDetail />} />
-          </Routes>
+          <div className='App'>
+            <Routes>
+              <Route path="/" exact element={<AnimeList />} />
+              <Route path="/:animeId" element={<AnimeDetail />} />
+              <Route path="/collections" element={<CollectionList />} />
+              <Route path="/collections/:name" element={<CollectionDetail />} />
+            </Routes>
+          </div>
         </BrowserRouter>
       </CollectionContextProvider>
     </AnimeContextProvider>

@@ -50,7 +50,7 @@ export default function Pagination(props) {
           </Link>
         )}
         {pages.map(page => (
-          <Link to={`/?page=${page}`}>
+          <Link to={`/?page=${page}`} key={page}>
             {page === currentPage ? (
               <ActivePage>{page}</ActivePage>
             ) : (

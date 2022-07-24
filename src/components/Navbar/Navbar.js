@@ -10,8 +10,11 @@ export default function Navbar() {
     justify-content: space-between;
     align-items: center;
     padding: 24px 32px;
-    background-color: rgba(0,0,0,0.1);
+    background-color: lightgrey;
     border-radius: 25px;
+    position: fixed;
+    top: 0;
+    width: 100%;
   `
 
   const Button = styled.div`

@@ -40,9 +40,11 @@ export default function CollectionDetail() {
   }
 
   const handleRemove = (id) => {
-    const currentData = { ...collections.data }
-    const filteredData = currentData[name].filter(animeId => animeId !== id)
-    dispatch({ type: 'SET_COLLECTION', data: { ...currentData, [name]: filteredData } })
+    if(window.confirm(`Remove Anime "${name}" from this collection ?`) === true){
+      const currentData = { ...collections.data }
+      const filteredData = currentData[name].filter(animeId => animeId !== id)
+      dispatch({ type: 'SET_COLLECTION', data: { ...currentData, [name]: filteredData } })
+    }
   }
 
   return (

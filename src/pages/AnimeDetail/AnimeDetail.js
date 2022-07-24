@@ -11,7 +11,7 @@ export default function AnimeDetail() {
   const [disable, setDisable] = useState(false)
   const [addForm, setAddForm] = useState(false)
   const { animeId } = useParams()
-  const { data } = useQuery(GET_ANIME_DETAIL, { variables: { id: animeId } })
+  const { data, loading } = useQuery(GET_ANIME_DETAIL, { variables: { id: animeId } })
   const { collections, dispatch } = useContext(CollectionContext)
   console.log(animeId, 'anime id')
   const { Media } = data || {}
@@ -45,8 +45,6 @@ export default function AnimeDetail() {
     setDisable(!selectedCollection && !newCollection)
   }, [selectedCollection, newCollection])
 
-  console.log(disable)
-
   const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -56,9 +54,10 @@ export default function AnimeDetail() {
 
   const Content = styled.div`
     display: flex;
-    width: 50%;
     margin-top: 24px;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 80%
   `
 
   const Image = styled.img`
@@ -68,10 +67,12 @@ export default function AnimeDetail() {
   const Paragraph = styled.p`
     margin-left: 20px;
     text-align: justify;
+    max-width: 80%;
   `
 
   const Iframe = styled.iframe`
     margin-top: 32px;
+    max-width: 80%;
   `
 
   const Label = styled.label`
@@ -102,6 +103,14 @@ export default function AnimeDetail() {
       </div>
     )
   }
+
+  if(loading){
+    return (
+      <Container>
+        <h3>Loading...</h3>
+      </Container>
+    )
+  }
   
   return (
     <Container>
@@ -114,8 +123,7 @@ export default function AnimeDetail() {
       {addForm && (
         <Form onSubmit={addToCollection}>
           <Container>
-            {Object.keys(collections.data).length > 0 && (
-              <>
+            {Object.keys(collections.data).length > 0 ? (
               <div>
                 <Label>Your Collections </Label>
                 <select
@@ -130,20 +138,20 @@ export default function AnimeDetail() {
                   ))}
                 </select>
               </div>
-                <Bold> or </Bold>
-              </>
+            ) : (
+              <div>
+                <Label>New Collection </Label>
+                <input
+                  name="collectionName"
+                  type="text"
+                  onChange={e => setNewCollection(e.target.value)} 
+                  value={newCollection}
+                  placeholder="collection names"
+                  disabled={selectedCollection}
+                  pattern="[a-zA-Z0-9\s]+"
+                />
+              </div>
             )}
-            <div>
-              <Label>New Collection </Label>
-              <input
-                name="collectionName"
-                type="text"
-                onChange={e => setNewCollection(e.target.value)} 
-                value={newCollection}
-                placeholder="input new colection names"
-                disabled={selectedCollection}
-              />
-            </div>
           </Container>
           <button type='submit' disabled={disable}>save</button>
           <button onClick={() => setAddForm(false)}>cancel</button>
@@ -152,7 +160,7 @@ export default function AnimeDetail() {
       {trailer && <Iframe 
         src={`https://www.youtube.com/embed/${trailer.id}`} 
         title={trailer.id}
-        width="80%"
+        width="500"
         height="400"
       />}
       <Content>

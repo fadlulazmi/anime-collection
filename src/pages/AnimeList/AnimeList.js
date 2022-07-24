@@ -5,7 +5,6 @@ import { GET_ANIME_LIST } from '../../queries'
 import { AnimeContext } from '../../context/anime'
 import styled from '@emotion/styled'
 import Card from '../../components/Card'
-import CardLoadMore from '../../components/CardLoadMore'
 import Pagination from '../../components/Pagination/Pagination'
 
 export default function AnimeList() {
